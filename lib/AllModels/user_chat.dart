@@ -1,6 +1,8 @@
-import 'package:chatapp/allConstants/firestore_constants.dart';
+// ignore_for_file: empty_catches
+
+import 'package:chat_app/allConstants/firestore_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 
 class UserChat {
   String id;

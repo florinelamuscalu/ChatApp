@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class chatApp extends StatefulWidget {
-  const chatApp({Key? key}) : super(key: key);
+class ChatApp extends StatefulWidget {
+  const ChatApp({Key? key}) : super(key: key);
 
   @override
-  State<chatApp> createState() => _chatAppState();
+  State<ChatApp> createState() => _ChatAppState();
 }
 
-class _chatAppState extends State<chatApp> {
+class _ChatAppState extends State<ChatApp> {
 
   int _selectedIndex = 0;
 

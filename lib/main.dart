@@ -1,15 +1,17 @@
-import 'package:chatapp/allConstants/app_constants.dart';
-import 'package:chatapp/allProvider/auth_provider.dart';
+import 'package:chat_app/allConstants/app_constants.dart';
+import 'package:chat_app/allProvider/auth_provider.dart';
+import 'package:chat_app/allScreens/spalsh_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-//import 'chatapp_page.dart';
+//import 'ChatApp_page.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'allScreens/spalsh_page.dart';
 
 bool isWhite = false;
 
@@ -38,8 +40,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider(
           firebaseAuth: FirebaseAuth.instance,
           googleSignIn: GoogleSignIn(),
-          prefs: this.prefs,
-          firebaseFirestore: this.firebaseFirestore
+          prefs: prefs,
+          firebaseFirestore: firebaseFirestore
         ))
       ],
       child: MaterialApp(
@@ -47,13 +49,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor:  Colors.black,
         ),
-        home: const Scaffold(),
+        home: const SplashPage(),
         debugShowCheckedModeBanner: false,
       ),
     );
     // return const MaterialApp(
     //   debugShowCheckedModeBanner: false,
-    //   home: chatApp()
+    //   home: ChatApp()
     // );
   }
   }
