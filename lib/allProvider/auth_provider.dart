@@ -34,6 +34,10 @@ class AuthProvider extends ChangeNotifier {
     required this.firebaseFirestore,
   });
 
+  String? getUserFirebaseId(){
+    return prefs.getString(FirestoreConstants.id);
+  }
+
   Future<bool> isLogedIn() async {
     bool isLoggedIn = await googleSignIn.isSignedIn();
     if (isLoggedIn &&

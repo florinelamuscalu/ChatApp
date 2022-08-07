@@ -20,6 +20,8 @@ void main() async {
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
+  
+
 
   runApp(MyApp(prefs: prefs));
 }
