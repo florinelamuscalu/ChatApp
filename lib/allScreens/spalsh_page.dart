@@ -57,10 +57,10 @@ class _SplashPageState extends State<SplashPage> {
           const SizedBox(
             height: 30,
           ),
-          Container(
+          const SizedBox(
             width: 20,
             height: 20,
-            child: const CircularProgressIndicator(
+            child: CircularProgressIndicator(
                 color: ColorConstants.themeColor),
           )
         ],

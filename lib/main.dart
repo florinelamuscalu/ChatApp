@@ -1,5 +1,6 @@
 import 'package:chat_app/allConstants/app_constants.dart';
 import 'package:chat_app/allProvider/auth_provider.dart';
+import 'package:chat_app/allProvider/setting_provider.dart';
 import 'package:chat_app/allScreens/spalsh_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,6 @@ void main() async {
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  
-
-
   runApp(MyApp(prefs: prefs));
 }
 
@@ -31,25 +29,31 @@ class MyApp extends StatelessWidget {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
-
-  MyApp({required this.prefs});
+  MyApp({Key? key, required this.prefs}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider(
-          firebaseAuth: FirebaseAuth.instance,
-          googleSignIn: GoogleSignIn(),
-          prefs: prefs,
-          firebaseFirestore: firebaseFirestore
-        ))
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(
+              firebaseAuth: FirebaseAuth.instance,
+              googleSignIn: GoogleSignIn(),
+              prefs: prefs,
+              firebaseFirestore: firebaseFirestore),
+        ),
+        Provider<SettingProvider>(
+          create: (_) => SettingProvider(
+              prefs: this.prefs,
+              firebaseFirestore: this.firebaseFirestore,
+              firebaseStorage: this.firebaseStorage),
+        ),
       ],
       child: MaterialApp(
         title: AppConstants.appTitle,
         theme: ThemeData(
-          primaryColor:  Colors.black,
+          primaryColor: Colors.black,
         ),
         home: const SplashPage(),
         debugShowCheckedModeBanner: false,
@@ -60,4 +64,4 @@ class MyApp extends StatelessWidget {
     //   home: ChatApp()
     // );
   }
-  }
+}

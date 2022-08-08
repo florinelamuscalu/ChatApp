@@ -34,6 +34,7 @@ class AuthProvider extends ChangeNotifier {
     required this.firebaseFirestore,
   });
 
+
   String? getUserFirebaseId(){
     return prefs.getString(FirestoreConstants.id);
   }
@@ -126,3 +127,5 @@ class AuthProvider extends ChangeNotifier {
     await googleSignIn.signOut();
   }
 }
+
+//final AuthProvider authService = Auth();

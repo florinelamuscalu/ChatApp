@@ -16,15 +16,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final ScrollController listScrollControler = ScrollController();
 
+  // ignore: unused_field
   int _limit = 20;
+  // ignore: prefer_final_fields
   int _limitIncrement = 20;
+  // ignore: prefer_final_fields, unused_field
   String _textSearch = "";
   bool isLoading = false;
-
 
   late String curentUserId;
   late AuthProvider authProvider;
@@ -35,102 +36,107 @@ class _HomePageState extends State<HomePage> {
     PopupChoices(title: 'Sign out', icon: Icons.exit_to_app),
   ];
 
-  Future<void> handleSingOut() async{
+  Future<void> handleSingOut() async {
+    // authProvider.handleSingOut().then((res) {
+    //   Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(builder: (context) => const LogInPage()));
+    // });
     authProvider.handleSingOut();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const LogInPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }
 
-  void scrollListener(){
-    if(listScrollControler.offset >= listScrollControler.position.maxScrollExtent && !listScrollControler.position.outOfRange){
+  void scrollListener() {
+    if (listScrollControler.offset >=
+            listScrollControler.position.maxScrollExtent &&
+        !listScrollControler.position.outOfRange) {
       setState(() {
         _limit += _limitIncrement;
       });
     }
   }
 
-  void onItemMenuPress (PopupChoices choice){
-    if (choice.title == "Sing out"){
+  void onItemMenuPress(PopupChoices choice) {
+    if (choice.title == "Sign out") {
       handleSingOut();
-    }else{
-      Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+    } else {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const SettingsPage()));
     }
   }
 
-  Widget buildPopupMenu(){
-    return PopupMenuButton <PopupChoices>(
-      icon:  const Icon(Icons.more_vert, color: Colors.grey,),
-      onSelected: onItemMenuPress,
-      itemBuilder: (BuildContext context){
-      return choices.map((PopupChoices choice){
-        return PopupMenuItem<PopupChoices>
-        (value: choice,
-        child: Row(
-          children: <Widget>[
-          Icon(
-            choice.icon,
-            color: ColorConstants.primaryColor,
-            ),
-            Container(
-              width: 10,
-            ),
-              Text(
-                choice.title,
-                style: const TextStyle(
-                  color: ColorConstants.primaryColor
-                  ),
-              ),
-        ],
+  Widget buildPopupMenu() {
+    return PopupMenuButton<PopupChoices>(
+        icon: const Icon(
+          Icons.more_vert,
+          color: Colors.grey,
         ),
-        );
-      }).toList();
-      });
-}
+        onSelected: onItemMenuPress,
+        itemBuilder: (BuildContext context) {
+          return choices.map((PopupChoices choice) {
+            return PopupMenuItem<PopupChoices>(
+              value: choice,
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    choice.icon,
+                    color: ColorConstants.primaryColor,
+                  ),
+                  Container(
+                    width: 10,
+                  ),
+                  Text(
+                    choice.title,
+                    style: const TextStyle(color: ColorConstants.primaryColor),
+                  ),
+                ],
+              ),
+            );
+          }).toList();
+        });
+  }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     authProvider = context.read<AuthProvider>();
     //homeProvider = context.read<HomeProvider>();
 
-    if(authProvider.getUserFirebaseId()?.isNotEmpty == true){
+    if (authProvider.getUserFirebaseId()?.isNotEmpty == true) {
       curentUserId = authProvider.getUserFirebaseId()!;
-    }else{
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LogInPage()),
-      (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LogInPage()),
+          (Route<dynamic> route) => false);
     }
     listScrollControler.addListener(scrollListener);
-
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: isWhite ? Colors.white : Colors.black,
       appBar: AppBar(
-          backgroundColor: isWhite ? Colors.white : Colors.black,
-          leading: IconButton(
-            icon: Switch(
-              value: isWhite,
-              onChanged: (value){
-                setState(() {
-                  isWhite = value;
-                  print(isWhite);
-                });
-              },
-              activeTrackColor: Colors.grey,
-              activeColor: Colors.white,
-              inactiveTrackColor: Colors.grey,
-              inactiveThumbColor: Colors.black45,
-            ),
-            onPressed: () => '',
+        backgroundColor: isWhite ? Colors.white : Colors.black,
+        leading: IconButton(
+          icon: Switch(
+            value: isWhite,
+            onChanged: (value) {
+              setState(() {
+                isWhite = value;
+                //print(isWhite);
+              });
+            },
+            activeTrackColor: Colors.grey,
+            activeColor: Colors.white,
+            inactiveTrackColor: Colors.grey,
+            inactiveThumbColor: Colors.black45,
           ),
-          actions:<Widget> [
-            buildPopupMenu(),
-          ],
-          ),
+          onPressed: () => '',
+        ),
+        actions: <Widget>[
+          buildPopupMenu(),
+        ],
+      ),
     );
   }
 }
