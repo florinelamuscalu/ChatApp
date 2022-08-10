@@ -37,10 +37,6 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Future<void> handleSingOut() async {
-    // authProvider.handleSingOut().then((res) {
-    //   Navigator.of(context).pushReplacement(
-    //     MaterialPageRoute(builder: (context) => const LogInPage()));
-    // });
     authProvider.handleSingOut();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }
