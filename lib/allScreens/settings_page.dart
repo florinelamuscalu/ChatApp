@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../allProvider/setting_provider.dart';
 import '../main.dart';
+import 'home_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -25,9 +26,21 @@ class SettingsPage extends StatelessWidget {
       backgroundColor: isWhite ? Colors.white : Colors.black,
       appBar: AppBar(
         backgroundColor: isWhite ? Colors.white : Colors.black,
-        iconTheme: const IconThemeData(
-          color: ColorConstants.primaryColor,
+        // iconTheme: const IconThemeData(
+        //   color: ColorConstants.primaryColor,
+        // ),
+        // leading: const BackButton(
+        //     color: ColorConstants.primaryColor,
+        //     onPressed: () { Navigator.pop();};
+        //     ),
+
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: ColorConstants.primaryColor),
+          //onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomePage()))
         ),
+
         title: const Text(
           AppConstants.settingsTitle,
           style: TextStyle(
@@ -363,16 +376,12 @@ class _SettingsPageStateState extends State<SettingsPageState> {
                         style: const TextStyle(
                           color: Colors.grey,
                         ),
+                        enabled: false,
                         decoration: InputDecoration(
                           hintText: phoneNumber,
                           contentPadding: const EdgeInsets.all(5),
                           hintStyle: const TextStyle(color: Colors.grey),
                         ),
-                        controller: controllerAboutMe,
-                        onChanged: (value) {
-                          nickname = value;
-                        },
-                        focusNode: focusNodeAboutMe,
                       ),
                     ),
                   ),
