@@ -185,8 +185,7 @@ class _SettingsPageStateState extends State<SettingsPageState> {
       await settingProvider.setPref(FirestoreConstants.nickname, nickname);
       await settingProvider.setPref(FirestoreConstants.aboutMe, aboutMe);
       await settingProvider.setPref(FirestoreConstants.photoUrl, photoUrl);
-      await settingProvider.setPref(
-          FirestoreConstants.phoneNumber, phoneNumber);
+      await settingProvider.setPref(FirestoreConstants.phoneNumber, phoneNumber);
 
       setState(() {
         isLoading = false;
@@ -351,7 +350,7 @@ class _SettingsPageStateState extends State<SettingsPageState> {
                         ),
                         controller: controllerAboutMe,
                         onChanged: (value) {
-                          nickname = value;
+                          aboutMe = value;
                         },
                         focusNode: focusNodeAboutMe,
                       ),

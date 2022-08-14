@@ -45,9 +45,10 @@ class MyApp extends StatelessWidget {
         ),
         Provider<SettingProvider>(
           create: (_) => SettingProvider(
-              prefs: this.prefs,
-              firebaseFirestore: this.firebaseFirestore,
-              firebaseStorage: this.firebaseStorage),
+              prefs: prefs,
+              firebaseFirestore: firebaseFirestore,
+              firebaseStorage: firebaseStorage,
+              ),
         ),
       ],
       child: MaterialApp(
