@@ -35,11 +35,11 @@ class SettingsPage extends StatelessWidget {
         //     ),
 
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: ColorConstants.primaryColor),
-          //onPressed: () => Navigator.of(context).pop(),
-          onPressed: () => Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()))
-        ),
+            icon: const Icon(Icons.arrow_back,
+                color: ColorConstants.primaryColor),
+            //onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomePage()))),
 
         title: const Text(
           AppConstants.settingsTitle,
@@ -90,12 +90,12 @@ class _SettingsPageStateState extends State<SettingsPageState> {
 
   void readLocal() {
     setState(() {
-      id = settingProvider.getPref(FirestoreConstants.id) ?? " ";
-      nickname = settingProvider.getPref(FirestoreConstants.nickname) ?? " ";
-      aboutMe = settingProvider.getPref(FirestoreConstants.aboutMe) ?? " ";
-      photoUrl = settingProvider.getPref(FirestoreConstants.photoUrl) ?? " ";
+      id = settingProvider.getPref(FirestoreConstants.id) ?? "";
+      nickname = settingProvider.getPref(FirestoreConstants.nickname) ?? "";
+      aboutMe = settingProvider.getPref(FirestoreConstants.aboutMe) ?? "";
+      photoUrl = settingProvider.getPref(FirestoreConstants.photoUrl) ?? "";
       phoneNumber =
-          settingProvider.getPref(FirestoreConstants.phoneNumber) ?? " ";
+          settingProvider.getPref(FirestoreConstants.phoneNumber) ?? "";
     });
 
     controllerNickname = TextEditingController(text: nickname);
@@ -135,11 +135,12 @@ class _SettingsPageStateState extends State<SettingsPageState> {
           photoUrl: photoUrl,
           nickname: nickname,
           aboutMe: aboutMe,
-          phoneNumber: phoneNumber);
+          phoneNumber: phoneNumber,
+          );
 
       settingProvider
           .updateDataFirestore(
-              FirestoreConstants.pathMessageCollection, id, updateInfo.toJson())
+              FirestoreConstants.pathUserCollection, id, updateInfo.toJson())
           .then((data) async {
         await settingProvider.setPref(FirestoreConstants.photoUrl, photoUrl);
         setState(() {
@@ -176,11 +177,12 @@ class _SettingsPageStateState extends State<SettingsPageState> {
         photoUrl: photoUrl,
         nickname: nickname,
         aboutMe: aboutMe,
-        phoneNumber: phoneNumber);
+        phoneNumber: phoneNumber,
+        );
 
     settingProvider
         .updateDataFirestore(
-            FirestoreConstants.pathMessageCollection, id, updateInfo.toJson())
+            FirestoreConstants.pathUserCollection, id, updateInfo.toJson())
         .then((data) async {
       await settingProvider.setPref(FirestoreConstants.nickname, nickname);
       await settingProvider.setPref(FirestoreConstants.aboutMe, aboutMe);
@@ -442,7 +444,9 @@ class _SettingsPageStateState extends State<SettingsPageState> {
                       controller: _controller,
                     ),
                   ),
-                  Container(
+                ],
+              ),
+              Container(
                     margin: const EdgeInsets.only(top: 50, bottom: 50),
                     child: TextButton(
                       onPressed: handelUpdateData,
@@ -459,8 +463,6 @@ class _SettingsPageStateState extends State<SettingsPageState> {
                       ),
                     ),
                   ),
-                ],
-              ),
             ],
           ),
         ),

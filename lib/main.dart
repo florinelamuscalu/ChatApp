@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
               firebaseAuth: FirebaseAuth.instance,
               googleSignIn: GoogleSignIn(),
               prefs: prefs,
-              firebaseFirestore: firebaseFirestore),
+              firebaseFirestore: firebaseFirestore,
+              ),
         ),
         Provider<SettingProvider>(
           create: (_) => SettingProvider(
