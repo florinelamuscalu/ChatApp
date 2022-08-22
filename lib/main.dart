@@ -1,5 +1,6 @@
 import 'package:chat_app/allConstants/app_constants.dart';
 import 'package:chat_app/allProvider/auth_provider.dart';
+import 'package:chat_app/allProvider/home_provider.dart';
 import 'package:chat_app/allProvider/setting_provider.dart';
 import 'package:chat_app/allScreens/spalsh_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,18 +39,23 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthProvider(
-              firebaseAuth: FirebaseAuth.instance,
-              googleSignIn: GoogleSignIn(),
-              prefs: prefs,
-              firebaseFirestore: firebaseFirestore,
-              ),
+            firebaseAuth: FirebaseAuth.instance,
+            googleSignIn: GoogleSignIn(),
+            prefs: prefs,
+            firebaseFirestore: firebaseFirestore,
+          ),
         ),
         Provider<SettingProvider>(
           create: (_) => SettingProvider(
-              prefs: prefs,
-              firebaseFirestore: firebaseFirestore,
-              firebaseStorage: firebaseStorage,
-              ),
+            prefs: prefs,
+            firebaseFirestore: firebaseFirestore,
+            firebaseStorage: firebaseStorage,
+          ),
+        ),
+        Provider<HomeProvider>(
+          create: (_) => HomeProvider(
+            firebaseFirestore: firebaseFirestore,
+          ),
         ),
       ],
       child: MaterialApp(
