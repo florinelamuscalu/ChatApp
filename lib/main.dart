@@ -1,5 +1,6 @@
 import 'package:chat_app/allConstants/app_constants.dart';
 import 'package:chat_app/allProvider/auth_provider.dart';
+import 'package:chat_app/allProvider/chat_provider.dart';
 import 'package:chat_app/allProvider/home_provider.dart';
 import 'package:chat_app/allProvider/setting_provider.dart';
 import 'package:chat_app/allScreens/spalsh_page.dart';
@@ -57,6 +58,14 @@ class MyApp extends StatelessWidget {
             firebaseFirestore: firebaseFirestore,
           ),
         ),
+        Provider<ChatProvider>(
+          create: (_) => ChatProvider(
+            firebaseFirestore: firebaseFirestore,
+            prefs: prefs,
+            firebaseStorage: firebaseStorage,
+          ),
+        ),
+
       ],
       child: MaterialApp(
         title: AppConstants.appTitle,
