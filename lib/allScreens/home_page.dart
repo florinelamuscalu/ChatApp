@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:chat_app/AllModels/user_chat.dart';
-import 'package:chat_app/allConstants/color_constants.dart';
 import 'package:chat_app/allConstants/constants.dart';
 import 'package:chat_app/allProvider/auth_provider.dart';
 import 'package:chat_app/allScreens/login_page.dart';
@@ -30,18 +29,15 @@ class _HomePageState extends State<HomePage> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final ScrollController listScrollControler = ScrollController();
 
-  // ignore: unused_field
   int _limit = 20;
-  // ignore: prefer_final_fields
-  int _limitIncrement = 20;
-  // ignore: prefer_final_fields, unused_field
+  final int _limitIncrement = 20;
   String _textSearch = "";
   bool isLoading = false;
 
   late String currentUserId;
   late AuthProvider authProvider;
   late HomeProvider homeProvider;
-  
+
   Debouncer serchDebouncer = Debouncer(milliseconds: 300);
   StreamController<bool> btnClearController = StreamController();
   TextEditingController searchBarTec = TextEditingController();
@@ -398,7 +394,7 @@ class _HomePageState extends State<HomePage> {
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {
                             if (loadingProgress == null) return child;
-                            return Container(
+                            return SizedBox(
                               width: 50,
                               height: 50,
                               child: CircularProgressIndicator(
@@ -445,7 +441,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           child: Text(
-                            '${userChat.aboutMe}',
+                            //'${userChat.aboutMe}',
+                            userChat.aboutMe,
                             maxLines: 1,
                             style: TextStyle(
                               color: Colors.grey[700],
